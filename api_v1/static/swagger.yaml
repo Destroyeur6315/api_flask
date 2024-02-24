@@ -1,0 +1,129 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+   This is a sample API RESTful developed with flask
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: http://127.0.0.1:5000/api/v1/resources
+tags:
+  - name: item
+    description: Everything about your item
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: file
+    description: Everything about your files
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+      
+paths:
+  /items:
+    get:
+      tags:
+        - item
+      summary: Find all items
+      description: find all items in the database
+      operationId: get_All_Items
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref : '#/components/schemas/Item'
+    post:
+      tags:
+       - item
+      responses: 
+        '200':
+         description: Sucessful operation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+              
+  /items/{itemId}:
+    parameters:
+        - name: itemId
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+    get:
+      tags:
+        - item
+      responses: 
+        '200':
+         description: Sucessful operation
+         content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref : '#/components/schemas/Item'
+    put:
+      tags:
+        - item
+      responses: 
+        '200':
+         description: Sucessful operation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item_update'
+    delete:
+      tags:
+        - item
+      responses: 
+        '200':
+         description: Sucessful operation
+      
+                    
+components:
+  schemas:
+    Item:
+      properties:
+        id_article:
+          type: integer
+          example: 1
+        reference:
+          type: string
+          example: ref 1
+        code_article:
+          type: string
+          example: code 1
+        article_nom:
+          type: string
+          nullable: true
+          example: item 1
+    Item_update:
+      properties:
+        reference:
+          type: string
+          example: ref 1
+        code_article:
+          type: string
+          example: code 1
+        article_nom:
+          type: string
+          nullable: true
+          example: item 1
+    
+                  
+                  
+                  
+                  
+                  
+                  

@@ -1,0 +1,15 @@
+/items/{itemId}
+get:
+  tags:
+    - item
+  parameters:
+    - name: itemId
+      in: path
+      description: ID of pet to return
+      required: true
+      schema:
+        type: integer
+        format: int64
+  responses: 
+    '200':
+     description: Sucessful operation
