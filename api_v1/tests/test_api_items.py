@@ -1,0 +1,91 @@
+import requests
+
+SERVEUR = "http://127.0.0.1:5000"
+ENDPOINT = SERVEUR + "/api/v1/resources"
+
+def test_api_call():
+    response = requests.get(SERVEUR)
+    assert response.status_code == 200
+
+# def test_create_item():
+#     id_article = 46
+#     reference = "ref 30"
+#     code = "code 30"
+#     nom = "item 30"
+#     payload = new_item_payload(id_article, reference, code, nom)
+  
+#     create_item_response = create_item(payload)
+#     assert create_item_response.status_code == 200
+
+#     get_item_response = get_item(id_article)
+#     assert get_item_response.status_code == 200
+
+#     get_item_data =  get_item_response.json()
+#     assert get_item_data["reference"] == reference
+#     assert get_item_data["code_article"] == code
+#     assert get_item_data["article_nom"] == nom
+
+# def test_update_item():
+#     # create item
+#     # update the item
+#     # get and validate the change
+#     id_article = 47
+#     reference = "ref 30"
+#     code = "code 30"
+#     nom = "item 30"
+#     payload = new_item_payload(id_article, reference, code, nom)
+  
+#     create_item_response = create_item(payload)
+#     assert create_item_response.status_code == 200
+
+#     new_data = new_item_payload(id_article, "new ref", "new code", "new nom")
+
+#     update_item_response = update_item(id_article, new_data)
+#     assert update_item_response.status_code == 200
+
+#     get_item_response = get_item(id_article)
+#     assert get_item_response.status_code == 200
+
+#     get_item_data =  get_item_response.json()
+#     assert get_item_data["reference"] == "new ref"
+#     assert get_item_data["code_article"] == "new code"
+#     assert get_item_data["article_nom"] == "new nom"
+
+# def test_delete_item():
+#     # create item
+#     # delete the item
+#     # get the item and check that it's not found
+#     id_article = 48
+#     reference = "ref 30"
+#     code = "code 30"
+#     nom = "item 30"
+#     payload = new_item_payload(id_article, reference, code, nom)
+  
+#     create_item_response = create_item(payload)
+#     assert create_item_response.status_code == 200
+    
+#     delete_item_response = delete_item(id_article)
+#     assert delete_item_response.status_code == 200
+
+#     get_item_response = get_item(id_article)
+#     assert get_item_response.status_code == 404
+
+# def create_item(payload):
+#     return requests.post(ENDPOINT + "/items", json=payload)
+
+# def get_item(id_article):
+#     return requests.get(ENDPOINT + f"/items/{id_article}")
+
+# def update_item(id_article, payload):
+#     return requests.put(ENDPOINT + f"/items/{id_article}", json=payload)
+
+# def delete_item(id_article):
+#     return requests.delete(ENDPOINT + f"/items/{id_article}")
+
+# def new_item_payload(id_article, reference, code_article, article_nom):
+#     return {
+#         "id_article": id_article,
+#         "reference": reference,
+#         "code_article": code_article,
+#         "article_nom": article_nom
+#     }
