@@ -18,19 +18,15 @@
   "tags": [
     {
       "name": "item",
-      "description": "Everything about your item",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "http://swagger.io"
-      }
+      "description": "Everything about your item"
     },
     {
       "name": "file",
-      "description": "Everything about your files",
-      "externalDocs": {
-        "description": "Find out more about our store",
-        "url": "http://swagger.io"
-      }
+      "description": "Everything about your files"
+    },
+    {
+      "name": "item and file",
+      "description": "Everything about item/file"
     }
   ],
   "paths": {
@@ -62,6 +58,9 @@
         "tags": [
           "item"
         ],
+        "summary": "Create one item",
+        "description": "create a item in the database",
+        "operationId": "add_Items",
         "responses": {
           "200": {
             "description": "Sucessful operation"
@@ -95,16 +94,16 @@
         "tags": [
           "item"
         ],
+        "summary": "Find one item by id",
+        "description": "Find one item by id in the database",
+        "operationId": "handle_Items_By_Id",
         "responses": {
           "200": {
             "description": "Sucessful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Item"
-                  }
+                  "$ref": "#/components/schemas/Item"
                 }
               }
             }
@@ -115,6 +114,8 @@
         "tags": [
           "item"
         ],
+        "summary": "Update one item by id",
+        "description": "Find one item by id in the database",
         "responses": {
           "200": {
             "description": "Sucessful operation"
@@ -134,15 +135,243 @@
         "tags": [
           "item"
         ],
+        "summary": "Delete one item by id",
+        "description": "Find one item by id in the database",
         "responses": {
           "200": {
             "description": "Sucessful operation"
           }
         }
       }
+    },
+    "/files": {
+      "get": {
+        "tags": [
+          "file"
+        ],
+        "summary": "Find all files",
+        "description": "Find all files in the database",
+        "operationId": "get",
+        "responses": {
+          "200": {
+            "description": "Sucessful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/File"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/files/{fileId}": {
+      "parameters": [
+        {
+          "name": "fileId",
+          "in": "path",
+          "description": "ID of pet to return",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "file"
+        ],
+        "summary": "Find one file by id",
+        "description": "Find one file by id in the database",
+        "operationId": "g",
+        "responses": {
+          "200": {
+            "description": "Sucessful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/File"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "file"
+        ],
+        "summary": "Update one file by id (Auth require)",
+        "description": "Find one file by id in the database",
+        "operationId": "gg",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucessful operation"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/File_update_auth"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "file"
+        ],
+        "summary": "Delete one file by id",
+        "description": "Find one file by id in the database",
+        "operationId": "ggg",
+        "responses": {
+          "200": {
+            "description": "Sucessful operation"
+          }
+        }
+      }
+    },
+    "/items/{itemId}/files": {
+      "parameters": [
+        {
+          "name": "itemId",
+          "in": "path",
+          "description": "ID of pet to return",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "item and file"
+        ],
+        "summary": "Find all files owned by one item",
+        "description": "Find all files owned by one item in the database",
+        "operationId": "got",
+        "responses": {
+          "200": {
+            "description": "Sucessful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/File"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "item and file"
+        ],
+        "summary": "Create one file for one item which already exist",
+        "description": "Create one file for one item which already exist in the database",
+        "operationId": "gat",
+        "responses": {
+          "200": {
+            "description": "Sucessful operation"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/File_create"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/items/{itemId}/files/{fileId}": {
+      "parameters": [
+        {
+          "name": "itemId",
+          "in": "path",
+          "description": "ID of pet to return",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "fileId",
+          "in": "path",
+          "description": "ID of pet to return",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "put": {
+        "tags": [
+          "item and file"
+        ],
+        "summary": "Update one file by id owned by one item",
+        "description": "Update one file by id owned by one item in the database",
+        "operationId": "gggg",
+        "responses": {
+          "200": {
+            "description": "Sucessful operation"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/File_update"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "API key is missing or invalid",
+        "headers": {
+          "WWW_Authenticate": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
     "schemas": {
       "Item": {
         "properties": {
@@ -179,6 +408,78 @@
             "type": "string",
             "nullable": true,
             "example": "item 1"
+          }
+        }
+      },
+      "File": {
+        "properties": {
+          "id_dossier": {
+            "type": "integer",
+            "example": 1
+          },
+          "num_dossier": {
+            "type": "string",
+            "example": "dossier_1"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "01/10/2003",
+            "nullable": true
+          },
+          "id_article": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "File_update": {
+        "properties": {
+          "num_dossier": {
+            "type": "string",
+            "example": "dossier_1"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "01/10/2003",
+            "nullable": true
+          }
+        }
+      },
+      "File_update_auth": {
+        "properties": {
+          "num_dossier": {
+            "type": "string",
+            "example": "dossier_1"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "01/10/2003",
+            "nullable": true
+          },
+          "id_article": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "File_create": {
+        "properties": {
+          "id_dossier": {
+            "type": "integer",
+            "example": 1
+          },
+          "num_dossier": {
+            "type": "string",
+            "example": "dossier_1"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "01/10/2003",
+            "nullable": true
           }
         }
       }
