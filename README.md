@@ -16,13 +16,33 @@
 </div>
 
 
-### Built With
+## Built With
 
 * Language : Python
 * Framework : Flask
 * Unit test : pytest
-* Documentation : swagger
+* Technical document : swagger 
+* User document : README.md
+* Database : SQLite
 
+## About the project
+
+Here is the subject : 
+> Design a RESTful API with the appropriate endpoints to populate and consult the database. Endpoints must include at least create, read, update, and delete (CRUD) functionality.
+
+If you want to start the project, go to section *Getting started*.
+
+So, the api have 12 endpoints for populate and consult the databse. The database have only 2 tables : item and file. Here you can watch the MCD :
+
+<br>
+
+<div class="text-center">
+    <img src="./images/MCD.png" alt="Logo" height="100">
+</div>
+
+<br>
+
+There are two .csv (data_file and data_item) in the folder *data* which allows to put data in the database. 
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -30,7 +50,7 @@
 
 ### Prerequisites
 
-For launch this projet on your computer, you might have to npm. If you don't have, install with the command :
+For launch this projet on your computer, you might have npm. If you don't have, install with the command :
 ```sh
 npm install npm@latest -g
 ```
@@ -39,13 +59,17 @@ npm install npm@latest -g
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/Destroyeur6315/api_flask.git
    ```
 2. Install NPM packages
    ```sh
    npm install
    ```
-3. Launch the API:
+3. Run the file *setup_db* for create the database :
+   ```sh
+   python db/setup_db.py
+   ```
+4. Run the API:
    ```sh
    python api.py
    ```
@@ -56,10 +80,12 @@ npm install npm@latest -g
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-You can use API with diffent support, like postman, in your shell or directly in your best browser.
-But I recommend you to use swagger (I developped it for a reason...)
+You can use API with diffent support to test endpoints, like postman, in your shell (with curl command) or directly in your best browser.
+But I recommend you to use swagger. 
 
 For see the swagger documentation go to : http://127.0.0.1:5000/api/docs/
+
+Remark: Your api have to be run for see the swagger doc.
 
 ## Test
 

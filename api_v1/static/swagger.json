@@ -3,11 +3,6 @@
   "info": {
     "title": "Swagger Petstore - OpenAPI 3.0",
     "description": "This is a sample API RESTful developed with flask",
-    "termsOfService": "http://swagger.io/terms/",
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
     "version": "1.0.11"
   },
   "servers": [
@@ -18,7 +13,7 @@
   "tags": [
     {
       "name": "item",
-      "description": "Everything about your item"
+      "description": "Everything about your items"
     },
     {
       "name": "file",
@@ -26,7 +21,7 @@
     },
     {
       "name": "item and file",
-      "description": "Everything about item/file"
+      "description": "Everything about items/files"
     }
   ],
   "paths": {
@@ -375,7 +370,7 @@
     "schemas": {
       "Item": {
         "properties": {
-          "id_article": {
+          "id": {
             "type": "integer",
             "example": 1
           },
@@ -383,11 +378,11 @@
             "type": "string",
             "example": "ref 1"
           },
-          "code_article": {
+          "item_code": {
             "type": "string",
             "example": "code 1"
           },
-          "article_nom": {
+          "item_name": {
             "type": "string",
             "nullable": true,
             "example": "item 1"
@@ -400,11 +395,11 @@
             "type": "string",
             "example": "ref 1"
           },
-          "code_article": {
+          "item_code": {
             "type": "string",
             "example": "code 1"
           },
-          "article_nom": {
+          "item_name": {
             "type": "string",
             "nullable": true,
             "example": "item 1"
@@ -413,11 +408,11 @@
       },
       "File": {
         "properties": {
-          "id_dossier": {
+          "id": {
             "type": "integer",
             "example": 1
           },
-          "num_dossier": {
+          "num_file": {
             "type": "string",
             "example": "dossier_1"
           },
@@ -427,7 +422,7 @@
             "example": "01/10/2003",
             "nullable": true
           },
-          "id_article": {
+          "id_item": {
             "type": "integer",
             "example": 1
           }
@@ -435,7 +430,7 @@
       },
       "File_update": {
         "properties": {
-          "num_dossier": {
+          "num_file": {
             "type": "string",
             "example": "dossier_1"
           },
@@ -449,7 +444,7 @@
       },
       "File_update_auth": {
         "properties": {
-          "num_dossier": {
+          "num_file": {
             "type": "string",
             "example": "dossier_1"
           },
@@ -459,7 +454,7 @@
             "example": "01/10/2003",
             "nullable": true
           },
-          "id_article": {
+          "id_item": {
             "type": "integer",
             "example": 1
           }
@@ -467,11 +462,11 @@
       },
       "File_create": {
         "properties": {
-          "id_dossier": {
+          "id": {
             "type": "integer",
             "example": 1
           },
-          "num_dossier": {
+          "num_file": {
             "type": "string",
             "example": "dossier_1"
           },

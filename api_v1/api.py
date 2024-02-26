@@ -1,6 +1,5 @@
 from flask import request, jsonify, Flask
 import sqlite3
-import csv
 from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
@@ -35,7 +34,7 @@ def get_All_Items():
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    items = cur.execute('SELECT * FROM article;').fetchall()
+    items = cur.execute('SELECT * FROM item;').fetchall()
 
     # Convert object Row () into dict python
     items_dict = [dict(row) for row in items]
@@ -46,17 +45,17 @@ def get_All_Items():
 @app.route('/api/v1/resources/items', methods=['POST'])
 def add_Items():
     try :
-        id = request.json['id_article']
+        id = request.json['id']
         reference = request.json['reference']
-        code = request.json['code_article']
-        name = request.json['article_nom']
+        code = request.json['item_code']
+        name = request.json['item_name']
 
         # Return Object row which seems dict (tuple by default)
         conn = sqlite3.connect('database.db')
         conn.row_factory = sqlite3.Row
         cur = conn.cursor()
-        items = cur.execute('INSERT INTO article \
-            (id_article, reference, code_article, article_nom) VALUES (?, ?, ?, ?)', 
+        items = cur.execute('INSERT INTO item \
+            (id, reference, item_code, item_name) VALUES (?, ?, ?, ?)', 
                 (id, reference, code, name))
         
         conn.commit()
@@ -68,14 +67,14 @@ def add_Items():
         return jsonify({'success': False, 'message': str(e)}), 400
     
 
-@app.route('/api/v1/resources/items/<int:id_article>', methods=['GET', 'PUT', 'DELETE'])
-def handle_Items_By_Id(id_article):
+@app.route('/api/v1/resources/items/<int:id_item>', methods=['GET', 'PUT', 'DELETE'])
+def handle_Items_By_Id(id_item):
     conn = sqlite3.connect('database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    item = cur.execute('SELECT * FROM article WHERE id_article=?',[id_article]).fetchall()
+    item = cur.execute('SELECT * FROM item WHERE id=?',[id_item]).fetchall()
 
     if not item:
         conn.close()
@@ -89,18 +88,18 @@ def handle_Items_By_Id(id_article):
         return jsonify(item_dict[0])
     elif request.method == "PUT":
         reference = request.json['reference']
-        code = request.json['code_article']
-        name = request.json['article_nom']
+        code = request.json['item_code']
+        name = request.json['item_name']
 
-        item = cur.execute('UPDATE article SET reference=?, \
-            code_article=?, article_nom=? WHERE id_article=?',[reference, code, name, id_article])
+        item = cur.execute('UPDATE item SET reference=?, \
+            item_code=?, item_name=? WHERE id=?',[reference, code, name, id_item])
 
         conn.commit()
         conn.close()
 
         return jsonify({'success': True, 'message': "item update"}), 200
     elif request.method == "DELETE":
-        item = cur.execute('DELETE FROM article WHERE id_article=?',[id_article])
+        item = cur.execute('DELETE FROM item WHERE id=?',[id_item])
 
         conn.commit()
         conn.close()
@@ -117,7 +116,7 @@ def get_All_Files():
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    items = cur.execute('SELECT * FROM dossier;').fetchall()
+    items = cur.execute('SELECT * FROM file;').fetchall()
 
     # Convert object Row () into dict python
     items_dict = [dict(row) for row in items]
@@ -125,14 +124,14 @@ def get_All_Files():
     return jsonify(items_dict)
 
 
-@app.route('/api/v1/resources/files/<int:id_dossier>', methods=['GET'])
-def get_Files_By_Id(id_dossier):
+@app.route('/api/v1/resources/files/<int:id_file>', methods=['GET'])
+def get_Files_By_Id(id_file):
     conn = sqlite3.connect('database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    item = cur.execute('SELECT * FROM dossier WHERE id_dossier=?',[id_dossier]).fetchall()
+    item = cur.execute('SELECT * FROM file WHERE id=?',[id_file]).fetchall()
 
     if not item:
         conn.close()
@@ -144,20 +143,20 @@ def get_Files_By_Id(id_dossier):
     return jsonify(items_dict[0])
 
 
-@app.route('/api/v1/resources/files/<int:id_dossier>', methods=['DELETE'])
-def delete_Files_By_Id(id_dossier):
+@app.route('/api/v1/resources/files/<int:id_file>', methods=['DELETE'])
+def delete_Files_By_Id(id_file):
     conn = sqlite3.connect('database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    item = cur.execute('SELECT * FROM dossier WHERE id_dossier=?',[id_dossier]).fetchall()
+    item = cur.execute('SELECT * FROM file WHERE id=?',[id_file]).fetchall()
 
     if not item:
         conn.close()
         return jsonify({'success': False, 'message': 'file not found'}), 404
 
-    item = cur.execute('DELETE FROM dossier WHERE id_dossier=?',[id_dossier])
+    item = cur.execute('DELETE FROM file WHERE id=?',[id_file])
 
     conn.commit()
     conn.close()
@@ -165,8 +164,8 @@ def delete_Files_By_Id(id_dossier):
     return jsonify({'success': True, 'message': "file delete"}), 200
 
 
-@app.route('/api/v1/resources/files/<int:id_dossier>', methods=['PUT'])
-def update_Files_By_Id(id_dossier):
+@app.route('/api/v1/resources/files/<int:id_file>', methods=['PUT'])
+def update_Files_By_Id(id_file):
 
     auth_header = request.headers.get('X-API-KEY')
 
@@ -175,21 +174,21 @@ def update_Files_By_Id(id_dossier):
 
     conn = sqlite3.connect('database.db')
 
-    id_article = request.json['id_article']
-    num_dossier = request.json['num_dossier']
+    id_item = request.json['id_item']
+    num_file = request.json['num_file']
     date = request.json['date']
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    item = cur.execute('SELECT * FROM dossier WHERE id_dossier=?',[id_dossier]).fetchall()
+    item = cur.execute('SELECT * FROM file WHERE id=?',[id_file]).fetchall()
 
     if not item:
         conn.close()
         return jsonify({'success': False, 'message': 'file not found'}), 404
 
-    item = cur.execute('UPDATE dossier SET num_dossier=?, \
-            date=?, id_article=? WHERE id_dossier=?',[num_dossier, date, id_article, id_dossier])
+    item = cur.execute('UPDATE file SET num_file=?, \
+            date=?, id_item=? WHERE id=?',[num_file, date, id_item, id_file])
 
     conn.commit()
     conn.close()
@@ -197,14 +196,14 @@ def update_Files_By_Id(id_dossier):
     return jsonify({'success': True, 'message': "file update"}), 200
 
 
-@app.route('/api/v1/resources/items/<int:id_article>/files', methods=['GET'])
-def get_Files_By_ItemId(id_article):
+@app.route('/api/v1/resources/items/<int:id_item>/files', methods=['GET'])
+def get_Files_By_ItemId(id_item):
     conn = sqlite3.connect('database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    item = cur.execute('SELECT * FROM dossier WHERE id_article=?',[id_article]).fetchall()
+    item = cur.execute('SELECT * FROM file WHERE id_item=?',[id_item]).fetchall()
 
     if not item:
         conn.close()
@@ -216,56 +215,56 @@ def get_Files_By_ItemId(id_article):
     return jsonify(items_dict)
 
 
-@app.route('/api/v1/resources/items/<int:id_article>/files', methods=['POST'])
-def add_Files_By_ItemId(id_article):
+@app.route('/api/v1/resources/items/<int:id_item>/files', methods=['POST'])
+def add_Files_By_ItemId(id_item):
     conn = sqlite3.connect('database.db')
 
-    id = request.json['id_dossier']
-    num_dossier = request.json['num_dossier']
+    id = request.json['id']
+    num_file = request.json['num_file']
     date = request.json['date']
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    item = cur.execute('SELECT * FROM article WHERE id_article=?',[id_article]).fetchall()
+    item = cur.execute('SELECT * FROM item WHERE id=?',[id_item]).fetchall()
 
     if not item:
         conn.close()
         return jsonify({'success': False, 'message': 'item not found'}), 404
 
-    item = cur.execute('INSERT INTO dossier \
-            (id_dossier, num_dossier, date, id_article) VALUES (?, ?, ?, ?)', 
-                (id, num_dossier, date, id_article))
+    item = cur.execute('INSERT INTO file \
+            (id, num_file, date, id_item) VALUES (?, ?, ?, ?)', 
+                (id, num_file, date, id_item))
 
     conn.commit()
     conn.close()
     return jsonify({'success': True, 'message': "New file created"}), 200
 
 
-@app.route('/api/v1/resources/items/<int:id_article>/files/<int:id_dossier>', methods=['PUT'])
-def update_Files_By_ItemId(id_article, id_dossier):
+@app.route('/api/v1/resources/items/<int:id_item>/files/<int:id_file>', methods=['PUT'])
+def update_Files_By_ItemId(id_item, id_file):
     conn = sqlite3.connect('database.db')
 
-    num_dossier = request.json['num_dossier']
+    num_file = request.json['num_file']
     date = request.json['date']
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
-    item = cur.execute('SELECT * FROM article WHERE id_article=?',[id_article]).fetchall()
+    item = cur.execute('SELECT * FROM item WHERE id=?',[id_item]).fetchall()
 
     if not item:
         conn.close()
         return jsonify({'success': False, 'message': 'item not found'}), 404
     
-    item = cur.execute('SELECT * FROM dossier WHERE id_dossier=?',[id_dossier]).fetchall()
+    item = cur.execute('SELECT * FROM file WHERE id=?',[id_file]).fetchall()
 
     if not item:
         conn.close()
         return jsonify({'success': False, 'message': 'file not found'}), 404
 
-    item = cur.execute('UPDATE dossier SET num_dossier=?, \
-            date=? WHERE id_dossier=?',[num_dossier, date, id_dossier])
+    item = cur.execute('UPDATE file SET num_file=?, \
+            date=? WHERE id=?',[num_file, date, id_file])
 
     conn.commit()
     conn.close()
