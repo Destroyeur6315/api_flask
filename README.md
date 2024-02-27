@@ -66,7 +66,7 @@ npm install npm@latest -g
    cd api_v1
    ```
 3. Create an virtual environnement
-3. 1. On MacOS/Linux
+   1. On MacOS/Linux
    ```sh
    python -m venv .venv
    ```
@@ -75,7 +75,7 @@ npm install npm@latest -g
    py -3 -m venv .venv
    ```
 4. Actiavte the virtual environnement
-4. 1. On MacOS/Linux
+   1. On MacOS/Linux
    ```sh
    . .venv/bin/activate
    ```
