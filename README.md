@@ -28,11 +28,11 @@
 ## About the project
 
 Here is the subject : 
-> Design a RESTful API with the appropriate endpoints to populate and consult the database. Endpoints must include at least create, read, update, and delete (CRUD) functionality.
+> Design a RESTful API with the appropriate endpoints to feed and consult the database. Endpoints must include at least create, read, update, and delete (CRUD) functionalities.
 
 If you want to start the project, go to section *Getting started*.
 
-So, the api have 12 endpoints for populate and consult the databse. The database have only 2 tables : item and file. Here you can watch the MCD :
+So, the api has 12 endpoints to feed and consult the databse. The database has only 2 tables: Item and File. As ilustrated in the screenshot of the MCD:
 
 <br>
 
@@ -42,7 +42,7 @@ So, the api have 12 endpoints for populate and consult the databse. The database
 
 <br>
 
-There are two .csv (data_file and data_item) in the folder *data* which allows to put data in the database. 
+There are two .csv (data_file and data_item) in the folder *data* which allows to add data in the database. 
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -50,7 +50,7 @@ There are two .csv (data_file and data_item) in the folder *data* which allows t
 
 ### Prerequisites
 
-For launch this projet on your computer, you might have npm and python 3.*. If you don't have, install with the command :
+To launch this API on your computer, you need to have npm and python 3.*. If not, install with the following command:
 ```sh
 npm install npm@latest -g
 ```
@@ -89,7 +89,7 @@ For python, download the executable : https://www.python.org/downloads/
    ```sh
    pip install -r requirements.txt
    ```
-6. Run the file *setup_db* for create the database and insert data :
+6. Run the file *setup_db* to create the database and to insert data:
    ```sh
    python db/setup_db.py
    ```
@@ -114,16 +114,15 @@ For python, download the executable : https://www.python.org/downloads/
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-You can use API with diffent support to test endpoints, like postman, in your shell (with curl command) or directly in your best browser.
-But I recommend you to use swagger. 
+You can use API with diffent supports to test endpoints but I would recomend using swagger. You may use other supports like postman, in your shell (with curl command) or directly in your favorite browser.
 
-For see the swagger documentation go to : http://127.0.0.1:5000/api/docs/
+To see the swagger documentation go to: http://127.0.0.1:5000/api/docs/
 
-Remark: Your api have to be run for see the swagger doc.
+Comment: your api has to run to see the swagger doc.
 
-Here an example for use swagger :
+Here is an example on how to use swagger:
 
-1. When you are at *http://127.0.0.1:5000/api/docs/*, you scroll a little and you can see severals endpoints :
+1. When you are at *http://127.0.0.1:5000/api/docs/*, you scroll a little and you can see severals endpoints:
 
 <br>
 
@@ -133,7 +132,7 @@ Here an example for use swagger :
 
 <br>
 
-2. If you want to test the first endpoint */items*, you can click on. You should see that on your screen :
+2. If you want to test the first endpoint */items*, you can click on the endpoint. You should see the following on your screen:
 
 <br>
 
@@ -143,7 +142,7 @@ Here an example for use swagger :
 
 <br>
 
-3. For send the HTTP request, you have to click on **Try it out** and a blue button with the word **Execute** will appear. Click on it :
+3. To send the HTTP request, you have to click on **Try it out** and a blue button with the word **Execute** will appear. Click on it :
 
 <br>
 
@@ -153,7 +152,7 @@ Here an example for use swagger :
 
 <br>
 
-4. To see the response, scroll a little until "Server response" section. The response is in JSON :
+4. To see the response, scroll until the "Server response"'s section. The response is in JSON:
 
 <br>
 
@@ -173,7 +172,7 @@ You just have to enter the command on your shell (you have to be in api_v1 repos
    pytest -vs
 ```
 
-Remark: you just to have put pytest without give files because pytest look over all your project and see if file begin with *test_ANYTHING.py*  and in these files, if function begin with the same thing (def test_....(): ...), it launch the function. The option *v* and *s* allow to have more information. You can don't put them.
+Comment: you just have to put pytest without naming the files. You can to do this, because pytest looks over all of your projects and finds the files that begin with *test_ANYTHING.py*. In these files, if a function begins with "test_..." it launches the function. The options *v* and *s* allow to have more information. You don't necessarily need to use those options.
 
 Normally, after run the command *pytest -vs* you should see :
 
@@ -196,7 +195,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-This list contain all things that helped me to developped my API
+This list contains all the things that helped me to developped my API:
 
 * [Flask documentation](https://flask.palletsprojects.com/en/3.0.x/quickstart/)
 * [Web site which explain how developped an API REST with flask](https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#overview)
