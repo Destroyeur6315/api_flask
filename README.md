@@ -11,7 +11,7 @@
   <h3 align="center">API RESTful</h3>
 
   <p align="center">
-    A little project for learn flask. It's a API which respect REST methodology.
+    A little project for learn flask. It's an API which respects REST methodology.
   </p>
 </div>
 
