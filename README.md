@@ -50,10 +50,12 @@ There are two .csv (data_file and data_item) in the folder *data* which allows t
 
 ### Prerequisites
 
-For launch this projet on your computer, you might have npm. If you don't have, install with the command :
+For launch this projet on your computer, you might have npm and python 3.*. If you don't have, install with the command :
 ```sh
 npm install npm@latest -g
 ```
+
+For python, download the executable : https://www.python.org/downloads/
 
 ### Installation
 
@@ -91,6 +93,16 @@ npm install npm@latest -g
    ```sh
    python db/setup_db.py
    ```
+
+<br>
+
+<div class="text-center">
+    <img src="./images/Setup_bdd.png" alt="Logo" height="200">
+</div>
+
+<br>
+
+
 7. Run the API:
    ```sh
    python api.py
@@ -109,16 +121,69 @@ For see the swagger documentation go to : http://127.0.0.1:5000/api/docs/
 
 Remark: Your api have to be run for see the swagger doc.
 
+Here an example for use swagger :
+
+1. When you are at *http://127.0.0.1:5000/api/docs/*, you scroll a little and you can see severals endpoints :
+
+<br>
+
+<div class="text-center">
+    <img src="./images/swagger_1.png" alt="Logo" height="400">
+</div>
+
+<br>
+
+2. If you want to test the first endpoint */items*, you can click on. You should see that on your screen :
+
+<br>
+
+<div class="text-center">
+    <img src="./images/swagger_2.png" alt="Logo" height="400">
+</div>
+
+<br>
+
+3. For send the HTTP request, you have to click on **Try it out** and a blue button with the word **Execute** will appear. Click on it :
+
+<br>
+
+<div class="text-center">
+    <img src="./images/swagger_3.png" alt="Logo" height="400">
+</div>
+
+<br>
+
+4. To see the response, scroll a little until "Server response" section. The response is in JSON :
+
+<br>
+
+<div class="text-center">
+    <img src="./images/swagger_4.png" alt="Logo" height="400">
+</div>
+
+<br>
+
+
 ## Test
 
 I use pytest for Unit test.
 
-You just have to enter the command on your shell in the root of the project:
+You just have to enter the command on your shell (you have to be in api_v1 repository) :
 ```sh
    pytest -vs
 ```
 
 Remark: you just to have put pytest without give files because pytest look over all your project and see if file begin with *test_ANYTHING.py*  and in these files, if function begin with the same thing (def test_....(): ...), it launch the function. The option *v* and *s* allow to have more information. You can don't put them.
+
+Normally, after run the command *pytest -vs* you should see :
+
+<br>
+
+<div class="text-center">
+    <img src="./images/pytest.png" alt="Logo" height="500">
+</div>
+
+<br>
 
 <!-- LICENSE -->
 ## License
@@ -131,7 +196,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-This list contain all things that helped me to developped my api
+This list contain all things that helped me to developped my API
 
 * [Flask documentation](https://flask.palletsprojects.com/en/3.0.x/quickstart/)
 * [Web site which explain how developped an API REST with flask](https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask#overview)
