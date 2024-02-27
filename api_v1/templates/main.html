@@ -3,19 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-    <h1>Données provenant de l'API :</h1>
-    <ul>
-    {% for item in data_items %}
-        <li>{{ item }}</li>
-    {% endfor %}
-    </ul>
-    <ul>
-    {% for file in data_files %}
-        <li>{{ file }}</li>
-    {% endfor %}
-    </ul>
+    
+    <div class="container">
+        <h1 class="mb-5">Données provenant de l'API :</h1>
+
+        <div class="row gx-5 gy-5">
+            {% for item in data_items %}
+            
+                <div class="col-4">
+                    <div class="py-3 bg-warning d-flex flex-column">
+                        <div class="text-center">
+                            {{ item.item_name }}
+                        </div>
+                        <div class="">
+                            <ul>
+                                {% for file in data_files %}
+                                    {% if file.id_item == item.id  %}
+                                        <li>
+                                            {{ file.num_file }}
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Bootstrap Javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
