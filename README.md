@@ -63,7 +63,7 @@ npm install npm@latest -g
    ```
 2. Change directory
    ```sh
-   cd api_v1
+   cd api_flask/api_v1
    ```
 3. Create an virtual environnement
    1. On MacOS/Linux
