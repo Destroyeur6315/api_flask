@@ -1,5 +1,7 @@
-from flask import request, jsonify, Flask
 import sqlite3
+import requests
+
+from flask import request, jsonify, Flask, render_template
 from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
@@ -23,8 +25,10 @@ app.register_blueprint(swaggerui_blueprint)
 ########## Endpoints ##########
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>API REST</h1>
-<p>A prototype API for play with items and files</p>''', 200
+    data_items = requests.get('http://127.0.0.1:5000/api/v1/resources/items').json()
+    data_files = requests.get('http://127.0.0.1:5000/api/v1/resources/files').json()
+
+    return render_template('main.html', data_items=data_items, data_files=data_files)
 
 
 @app.route('/api/v1/resources/items', methods=['GET'])
@@ -54,6 +58,13 @@ def add_Items():
         conn = sqlite3.connect('db/database.db')
         conn.row_factory = sqlite3.Row
         cur = conn.cursor()
+
+        item = cur.execute('SELECT * FROM item WHERE id=?',[id]).fetchall()
+
+        if item:
+            conn.close()
+            return jsonify({'success': False, 'message': 'item with this id already exist'}), 404
+
         items = cur.execute('INSERT INTO item \
             (id, reference, item_code, item_name) VALUES (?, ?, ?, ?)', 
                 (id, reference, code, name))
@@ -231,6 +242,12 @@ def add_Files_By_ItemId(id_item):
     if not item:
         conn.close()
         return jsonify({'success': False, 'message': 'item not found'}), 404
+
+    item = cur.execute('SELECT * FROM file WHERE id=?',[id]).fetchall()
+
+    if item:
+        conn.close()
+        return jsonify({'success': False, 'message': 'file with this id already exist'}), 404
 
     item = cur.execute('INSERT INTO file \
             (id, num_file, date, id_item) VALUES (?, ?, ?, ?)', 
