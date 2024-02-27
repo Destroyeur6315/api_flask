@@ -1,4 +1,4 @@
-#!/Users/romain/Documents/Cours/project_pharma/api_v1/.venv/bin/python3
+#!/Users/romain/Documents/Cours/project_pharma/api_flask/api_v1/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
