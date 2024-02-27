@@ -1,3 +1,5 @@
 ## Requirements to install
 Flask
 flask-swagger-ui
+pytest
+requests
