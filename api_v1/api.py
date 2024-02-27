@@ -29,7 +29,7 @@ def home():
 
 @app.route('/api/v1/resources/items', methods=['GET'])
 def get_All_Items():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
@@ -51,7 +51,7 @@ def add_Items():
         name = request.json['item_name']
 
         # Return Object row which seems dict (tuple by default)
-        conn = sqlite3.connect('database.db')
+        conn = sqlite3.connect('db/database.db')
         conn.row_factory = sqlite3.Row
         cur = conn.cursor()
         items = cur.execute('INSERT INTO item \
@@ -69,7 +69,7 @@ def add_Items():
 
 @app.route('/api/v1/resources/items/<int:id_item>', methods=['GET', 'PUT', 'DELETE'])
 def handle_Items_By_Id(id_item):
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
@@ -111,7 +111,7 @@ def handle_Items_By_Id(id_item):
 
 @app.route('/api/v1/resources/files', methods=['GET'])
 def get_All_Files():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
@@ -126,7 +126,7 @@ def get_All_Files():
 
 @app.route('/api/v1/resources/files/<int:id_file>', methods=['GET'])
 def get_Files_By_Id(id_file):
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
@@ -145,7 +145,7 @@ def get_Files_By_Id(id_file):
 
 @app.route('/api/v1/resources/files/<int:id_file>', methods=['DELETE'])
 def delete_Files_By_Id(id_file):
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
@@ -172,7 +172,7 @@ def update_Files_By_Id(id_file):
     if auth_header != fake_API_KEY:
         return jsonify({'success': False, 'message': 'API key invalid'}), 401
 
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     id_item = request.json['id_item']
     num_file = request.json['num_file']
@@ -198,7 +198,7 @@ def update_Files_By_Id(id_file):
 
 @app.route('/api/v1/resources/items/<int:id_item>/files', methods=['GET'])
 def get_Files_By_ItemId(id_item):
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     # Return Object row which seems dict (tuple by default)
     conn.row_factory = sqlite3.Row
@@ -217,7 +217,7 @@ def get_Files_By_ItemId(id_item):
 
 @app.route('/api/v1/resources/items/<int:id_item>/files', methods=['POST'])
 def add_Files_By_ItemId(id_item):
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     id = request.json['id']
     num_file = request.json['num_file']
@@ -243,7 +243,7 @@ def add_Files_By_ItemId(id_item):
 
 @app.route('/api/v1/resources/items/<int:id_item>/files/<int:id_file>', methods=['PUT'])
 def update_Files_By_ItemId(id_item, id_file):
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('db/database.db')
 
     num_file = request.json['num_file']
     date = request.json['date']

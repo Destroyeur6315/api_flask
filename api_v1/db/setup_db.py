@@ -1,7 +1,7 @@
 import sqlite3
 import csv
 
-name_db = "database.db"
+name_db = "db/database.db"
 
 # Function which create 2 tables : item and file
 def create_table(name_db):

@@ -61,15 +61,27 @@ npm install npm@latest -g
    ```sh
    git clone https://github.com/Destroyeur6315/api_flask.git
    ```
-2. Install NPM packages
+2. Change directory
    ```sh
-   npm install
+   cd api_v1
    ```
-3. Run the file *setup_db* for create the database :
+3. Create an virtual environnement
+   ```sh
+   python -m venv .venv
+   ```
+4. Actiavte the virtual environnement
+   ```sh
+   . .venv/bin/activate
+   ```
+5. Install dependancies
+   ```sh
+   pip install -r requirements.txt
+   ```
+6. Run the file *setup_db* for create the database and insert data :
    ```sh
    python db/setup_db.py
    ```
-4. Run the API:
+7. Run the API:
    ```sh
    python api.py
    ```
