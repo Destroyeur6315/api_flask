@@ -65,7 +65,7 @@ npm install npm@latest -g
    ```sh
    cd api_flask/api_v1
    ```
-3. Create an virtual environnement
+3. Create a virtual environment 
    1. On MacOS/Linux
    ```sh
    python -m venv .venv
@@ -74,7 +74,7 @@ npm install npm@latest -g
    ```sh
    py -3 -m venv .venv
    ```
-4. Actiavte the virtual environnement
+4. Activate the virtual environment 
    1. On MacOS/Linux
    ```sh
    . .venv/bin/activate
